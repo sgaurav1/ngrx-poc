@@ -1,0 +1,16 @@
+[
+    {
+        "userId": 1,
+        "name": "gaurav singh",
+        "email": "gtest@yopmail.com",
+        "designation": "UI Specialist",
+        "password": 123456
+    },
+    {
+        "userId": 2,
+        "name": "Nikki Singh",
+        "email": "nikki@yopmail.com",
+        "designation": "Teacher",
+        "password": 123456
+    }
+]

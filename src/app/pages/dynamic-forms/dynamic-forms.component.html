@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="create-form-section py-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-center text-dark mb-3">
+                    Create Your Own Form
+                </h5>
+
+                <div class="shadow-lg border p-3">
+                    <form [formGroup]="createFormFields" (ngSubmit)="createForm()"
+                        *ngIf="fieldsAddedOnform && fieldsAddedOnform.length !== 0">
+                        <div *ngFor="let fieldGroup of fieldsAddedOnform;let i = index">
+                            <p class="text-dark text-capitalize">{{fieldGroup.name}}</p>
+                            <div class="row">
+                                <ng-container [formGroupName]="fieldGroup.name">
+                                    <div class="col-6 form-group mb-3">
+                                        <label class="mb-2 font-bold">Field Name</label>
+                                        <input type="text" class="form-control" formControlName="fieldName"
+                                            placeholder="">
+                                        <div *ngIf="isCreationFromSubmitted && creationFormControls[fieldGroup.name].get('fieldName')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="creationFormControls[fieldGroup.name].get('fieldName')?.errors?.['required']"
+                                                class="color:red">Field name is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 form-group mb-3">
+                                        <label class="mb-2 font-bold">Type</label>
+                                        <select class="form-control" formControlName="fieldType" #typeOfField
+                                            placeholder="">
+                                            <option [value]="type.value" *ngFor="let type of formFields">{{type.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 form-group mb-3" *ngIf="typeOfField.value === 'input'">
+                                        <label class="mb-2 font-bold">Input Field Type</label>
+                                        <select class="form-control" formControlName="fieldType" placeholder="">
+                                            <option [value]="type.value" *ngFor="let type of inputTypes">{{type.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 form-group mb-3" *ngIf="typeOfField.value === 'select'">
+                                        <tag-input formControlName="selectBoxOptions" [identifyBy]="'id'" [displayBy]="'name'" [allowDupes]="false" [placeholder]="'Add options'" (onRemove)="onItemRemoved($event)" (onAdd)="onItemAdded($event)">
+                                        </tag-input>
+                                    </div>
+                                    <div class="col-6 form-group mb-3">
+                                        <label class="mb-2 font-bold">Placeholder</label>
+                                        <input type="text" class="form-control" formControlName="fieldPlaceholder"
+                                            placeholder="">
+                                    </div>
+                                    <div class="col-6 form-group mb-3">
+                                        <label class="mb-2 font-bold">Validations</label>
+                                        <!-- <select class="form-control" formControlName="fieldValidation" #validators
+                                            multiple>
+                                            <option [value]="validation.value"
+                                                *ngFor="let validation of formValidationsType">
+                                                {{validation.name}}</option>
+                                        </select> -->
+                                        <ng-multiselect-dropdown name="validations" [placeholder]="'Select Validations'"
+                                            [settings]="dropdownSettings" [data]="formValidationsType"
+                                            formControlName="fieldValidation" [disabled]="disabled">
+                                        </ng-multiselect-dropdown>
+                                    </div>
+                                    <div class="col-6 form-group mb-3"
+                                        *ngIf="(createFormFields.get(fieldGroup.name)?.value?.fieldValidation | filterdata:{value: 'minLength'})?.length > 0">
+                                        <label class="mb-2 font-bold">Min Length</label>
+                                        <input type="number" class="form-control" formControlName="minlength"
+                                            placeholder="">
+                                    </div>
+                                    <div class="col-6 form-group mb-3"
+                                        *ngIf="(createFormFields.get(fieldGroup.name)?.value?.fieldValidation | filterdata:{value: 'maxLength'})?.length > 0">
+                                        <label class="mb-2 font-bold">Max Length</label>
+                                        <input type="number" class="form-control" formControlName="maxlength"
+                                            placeholder="">
+                                    </div>
+                                    <div class="col-6 form-group mb-3"
+                                        *ngIf="createFormFields.get(fieldGroup.name)?.value?.fieldValidation?.length > 0">
+                                        <label class="mb-2 font-bold">Error Keyword</label>
+                                        <input type="text" class="form-control" formControlName="errorKeyword"
+                                            placeholder="ex: Email/Phone/name">
+                                    </div>
+                                    <div class="col d-flex pb-2">
+                                        <button class="btn btn-light ms-auto" type="button"
+                                            (click)="removeField(fieldGroup)"
+                                            *ngIf="fieldsAddedOnform && fieldsAddedOnform.length > 1">Remove
+                                            Field</button>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <button class="btn btn-info me-2" type="button" (click)="addNewField()">Add Field</button>
+                            <button class="btn btn-dark" type="submit">Create Form</button>
+                            <button class="btn btn-dark ms-2" type="button">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- form creation controls -->
+            <!-- FORM PREVIEW -->
+            <div class="col-md-6">
+                <h5 class="text-center text-dark mb-3">
+                    Your Form Preview
+                </h5>
+                <div class="border shadow-lg p-3">
+                    <ng-container *ngIf="addedFieldsToGenerate && addedFieldsToGenerate.length > 0">
+                        <form [formGroup]="yourForm" (ngSubmit)="submitYourForm()">
+                            <div class="row">
+                                <div class="form-group col-md-6" *ngFor="let field of addedFieldsToGenerate">
+                                    <label class="mb-2">{{field.fieldName}}</label>
+                                    <input class="form-control" [type]="field.fieldType"
+                                        [formControlName]="field.formControlName"
+                                        [placeholder]="field.fieldPlaceholder">
+                                    <!-- <select class="form-control" formControlName="">
+                                        <option value="" *ngFor="">{{}}</option>
+                                    </select> -->
+                                </div>
+                                <div class="col-12 d-flex justify-content-center py-2">
+                                    <button class="btn btn-dark" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
