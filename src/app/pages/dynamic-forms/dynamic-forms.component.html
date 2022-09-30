@@ -40,7 +40,9 @@
                                         </select>
                                     </div>
                                     <div class="col-6 form-group mb-3" *ngIf="typeOfField.value === 'select'">
-                                        <tag-input formControlName="selectBoxOptions" [identifyBy]="'id'" [displayBy]="'name'" [allowDupes]="false" [placeholder]="'Add options'" (onRemove)="onItemRemoved($event)" (onAdd)="onItemAdded($event)">
+                                        <tag-input formControlName="selectBoxOptions" [identifyBy]="'value'"
+                                            [displayBy]="'name'" [allowDupes]="false" [placeholder]="'Add options'"
+                                            (onRemove)="onItemRemoved($event)" (onAdd)="onItemAdded($event)">
                                         </tag-input>
                                     </div>
                                     <div class="col-6 form-group mb-3">
@@ -107,13 +109,24 @@
                         <form [formGroup]="yourForm" (ngSubmit)="submitYourForm()">
                             <div class="row">
                                 <div class="form-group col-md-6" *ngFor="let field of addedFieldsToGenerate">
-                                    <label class="mb-2">{{field.fieldName}}</label>
-                                    <input class="form-control" [type]="field.fieldType"
-                                        [formControlName]="field.formControlName"
-                                        [placeholder]="field.fieldPlaceholder">
+                                    <ng-container *ngIf="field.fieldType === 'input'">
+                                        <label class="mb-2">{{field.fieldName}}</label>
+                                        <input class="form-control" [type]="field.fieldType"
+                                            [formControlName]="field.formControlName"
+                                            [placeholder]="field.fieldPlaceholder">
+                                    </ng-container>
                                     <!-- <select class="form-control" formControlName="">
                                         <option value="" *ngFor="">{{}}</option>
                                     </select> -->
+                                    <ng-container *ngIf="field.fieldType === 'select'">
+                                        <label class="mb-2">{{field.fieldName}}</label>
+                                        <select class="form-control" [formControlName]="field.formControlName">
+                                            <option selected value="">select {{field.fieldPlaceholder}}</option>
+                                            <option [value]="option.value" *ngFor="let option of field.selectBoxOptions">
+                                                {{option.name}}
+                                            </option>
+                                        </select>
+                                    </ng-container>
                                 </div>
                                 <div class="col-12 d-flex justify-content-center py-2">
                                     <button class="btn btn-dark" type="submit">Submit</button>
