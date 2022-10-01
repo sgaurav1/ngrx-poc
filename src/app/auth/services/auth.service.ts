@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ENDPOINTS } from 'src/config';
 import { select, Store } from "@ngrx/store";
-import { isLoggedIn,isLoggedOut } from '../selectors/auth.selectors';
+import { isLoggedIn, isLoggedOut } from '../selectors/auth.selectors';
 // import {Store} from 'ngrx/store';
-import{ BehaviorSubject, Observable} from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 @Injectable({
   providedIn: 'root'
 })
@@ -14,11 +14,11 @@ export class AuthService {
   // userIsLoggedIn = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient, private store: Store) { }
 
-  login(id:number){
+  login(id: number) {
     // login statements
     return this.http.get(`${this.endPoints.user}/${id}`);
   }
-  logOut(){
+  logOut() {
     //logput statements 
   }
 
@@ -33,4 +33,37 @@ export class AuthService {
   //     }
   //   )
   // }
+  isLoggedIn(): boolean {
+    let isLoggedIn: boolean = false;
+    this.store.subscribe({
+      next: (res: any) => {
+        if (res.auth && res.auth.user !== undefined) {
+          console.log('res data', res);
+          isLoggedIn = true
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        isLoggedIn = false;
+      }
+    })
+    return isLoggedIn;
+  }
+
+  getRole() {
+    let role = '';
+    this.store.subscribe({
+      next: (res: any) => {
+        if (res.auth && res.auth.user !== undefined) {
+          role = res.auth.user.role
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        role = '';
+      }
+    })
+    return role;
+  }
+
 }

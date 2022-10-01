@@ -14,7 +14,8 @@ const routes: Routes = [
       {path: 'list', component: ListComponent},
       {path: 'dynamic-forms', component: DynamicFormsComponent}
     ],
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {role: 'ROLE_ADMIN'}
   }
 ];
 

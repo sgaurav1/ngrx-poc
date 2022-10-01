@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.compose([
         Validators.required
       ])],
+      role: ['ROLE_ADMIN']
     })
 
     // patch value if pre value is available
@@ -166,7 +167,12 @@ export class LoginComponent implements OnInit {
     //     }
     //   })
     this.store.dispatch(AuthActions.loginAction({ user: this.loginForm.value }));
-    this.router.navigateByUrl(this.routes.home)
+    if(this.auth.getRole() === 'ROLE_ADMIN'){
+      this.router.navigateByUrl(this.routes.home)
+    }
+    if(this.auth.getRole() === 'ROLE_USER'){
+      this.router.navigateByUrl(this.routes.user)
+    }
   }
   
 

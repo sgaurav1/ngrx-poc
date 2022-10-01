@@ -9,6 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { MycounterComponent } from './pages/mycounter/mycounter.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { AuthService } from './auth/services/auth.service';
 // import { SearchcontentPipe } from './pipes/searchcontent.pipe';
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     StoreModule.forRoot(reducers),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
