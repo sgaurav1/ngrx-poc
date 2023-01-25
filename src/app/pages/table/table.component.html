@@ -1,0 +1,18 @@
+<div class="container py-5">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of tableData; let i = index" (click)="viewDataDetails(data)">
+                <td>{{i+1}}</td>
+                <td>{{data.componentName}}</td>
+                <td>{{data.componentData.message}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

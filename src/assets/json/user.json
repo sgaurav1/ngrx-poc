@@ -8,9 +8,9 @@
     },
     {
         "userId": 2,
-        "name": "Nikki Singh",
-        "email": "nikki@yopmail.com",
-        "designation": "Teacher",
+        "name": "Ravi Singh",
+        "email": "ravi@yopmail.com",
+        "designation": "Developer",
         "password": 123456
     }
 ]

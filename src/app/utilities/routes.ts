@@ -5,4 +5,6 @@ export const ROUTES = {
     list: '/pages/list',
     user: '/user',
     dynamicForms: '/pages/dynamic-forms',
+    dynamicComponents: '/pages/dynamic-components',
+    table: '/pages/table',
 }

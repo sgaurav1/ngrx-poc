@@ -6,6 +6,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { AuthService } from '../auth/services/auth.service';
 import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 import { TagInputModule } from 'ngx-chips';
+// import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [],
@@ -15,14 +16,16 @@ import { TagInputModule } from 'ngx-chips';
     ReactiveFormsModule,
     HttpClientModule,
     NgMultiSelectDropDownModule,
-    TagInputModule
+    TagInputModule,
+    // TabsModule
   ],
   exports: [
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
     NgMultiSelectDropDownModule,
-    TagInputModule
+    TagInputModule,
+    // TabsModule 
   ],
   providers: [AuthService],
 })

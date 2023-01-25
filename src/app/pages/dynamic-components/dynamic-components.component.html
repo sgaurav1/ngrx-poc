@@ -1,0 +1,14 @@
+<div class="container p-3">
+    <button class="btn btn-dark mb-3" (click)="backToTableView()">Back</button>
+
+<ul class="nav nav-tabs tablist-sec" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation" *ngFor="let cmp of componentsToShow">
+      <button class="nav-link border" [ngClass]="cmp.componentId == activeComponent.componentId ? 'active' : ''"
+      type="button" role="tab" (click)="loadTab(cmp)">{{cmp.componentName}}</button>
+      <span class="closeTab" (click)="closeTab(cmp)">X</span>
+    </li>
+  </ul>
+  <div class="tab-content" #dynamicCmp>
+  </div>
+</div>
+<!-- <ng-template></ng-template> -->

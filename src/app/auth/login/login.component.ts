@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginForm.valueChanges
-      .pipe(distinctUntilChanged((prev, curr) => prev.name === curr.na))
+      // .pipe(distinctUntilChanged((prev, curr) => prev.name === curr.na))
       .subscribe(
         {
           next: (values) => {

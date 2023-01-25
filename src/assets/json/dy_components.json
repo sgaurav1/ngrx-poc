@@ -1,0 +1,36 @@
+{
+    "components":[
+        {
+            "componentId": 1,
+            "componentName": "Component 1",
+            "componentData": {
+                "message": "Hii this is Component 1"
+            },
+            "isActive": false
+        },
+        {
+            "componentId": 2,
+            "componentName": "Component 2",
+            "componentData": {
+                "message": "Hii this is Component 2"
+            },
+            "isActive": false
+        },
+        {
+            "componentId": 3,
+            "componentName": "Component 3",
+            "componentData": {
+                "message": "Hii this is Component 3"
+            },
+            "isActive": false
+        },
+        {
+            "componentId": 4,
+            "componentName": "Component 4",
+            "componentData": {
+                "message": "Hii this is Component 4"
+            },
+            "isActive": false
+        }
+    ]
+}
